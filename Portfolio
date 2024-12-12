@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        nav a:hover, nav a.active {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 2rem auto;
+        }
+
+        section {
+            padding: 2rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .add-section input,
+        .add-section textarea,
+        .add-section input[type="file"] {
+            display: block;
+            width: 80%;
+            max-width: 500px;
+            margin: 0.5rem auto;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .add-section button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            color: #fff;
+            background: #333;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-section button:hover {
+            background: #555;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .section-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-item img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            max-height: 300px;
+            margin: 0 auto 1rem;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .remove-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .remove-button:hover {
+            background: darkred;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#testimonials">Testimonials</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="about" class="about">
+            <h2>About Me</h2>
+            <p>Hello! I'm a web developer passionate about building beautiful and functional websites. With skills in HTML, CSS, JavaScript, and more, I aim to deliver exceptional digital experiences.</p>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2>Projects</h2>
+        </section>
+
+        <section class="add-section">
+            <h2>Add a New Subtitle to Projects</h2>
+            <input type="text" id="projects-subtitle" placeholder="Subtitle Title">
+            <button onclick="addSection('projects')">Add Subtitle</button>
+        </section>
+
+        <section id="skills" class="skills">
+            <h2>Skills</h2>
+        </section>
+
+        <section class="add-section">
+            <h2>Add a New Subtitle to Skills</h2>
+            <input type="text" id="skills-subtitle" placeholder="Subtitle Title">
+            <button onclick="addSection('skills')">Add Subtitle</button>
+        </section>
+
+        <section id="achievements" class="achievements">
+            <h2>Achievements</h2>
+        </section>
+
+        <section class="add-section">
+            <h2>Add a New Subtitle to Achievements</h2>
+            <input type="text" id="achievements-subtitle" placeholder="Subtitle Title">
+            <button onclick="addSection('achievements')">Add Subtitle</button>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <h2>Testimonials</h2>
+        </section>
+
+        <section class="add-section">
+            <h2>Add a New Subtitle to Testimonials</h2>
+            <input type="text" id="testimonials-subtitle" placeholder="Subtitle Title">
+            <button onclick="addSection('testimonials')">Add Subtitle</button>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Name. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function addSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const subtitleInput = document.getElementById(`${sectionId}-subtitle`);
+            const subtitleTitle = subtitleInput.value.trim();
+
+            if (subtitleTitle) {
+                const subtitleDiv = document.createElement('div');
+                subtitleDiv.classList.add('section-item');
+
+                subtitleDiv.innerHTML = `
+                    <button class="remove-button" onclick="removeSubtitle(this)">Remove Subtitle</button>
+                    <h3>${subtitleTitle}</h3>
+                    <div class="add-section">
+                        <h4>Add a New Item</h4>
+                        <input type="text" class="item-title" placeholder="Item Title">
+                        <input type="file" class="item-image" accept="image/*">
+                        <textarea class="item-description" placeholder="Item Description"></textarea>
+                        <button onclick="addItem(this.parentElement)">Add Item</button>
+                    </div>
+                `;
+
+                section.appendChild(subtitleDiv);
+                subtitleInput.value = '';
+            } else {
+                alert('Please enter a subtitle title.');
+            }
+        }
+
+        function removeSubtitle(button) {
+            const subtitleDiv = button.parentElement;
+            subtitleDiv.remove();
+        }
+
+        function addItem(container) {
+            const title = container.querySelector('.item-title').value.trim();
+            const imageInput = container.querySelector('.item-image');
+            const description = container.querySelector('.item-description').value.trim();
+
+            if (title && imageInput.files.length > 0 && description) {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('section-item');
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    itemDiv.innerHTML = `
+                        <button class="remove-button" onclick="removeItem(this)">Remove</button>
+                        <h3>${title}</h3>
+                        <img src="${e.target.result}" alt="${title}">
+                        <p>${description}</p>
+                    `;
+                    container.parentElement.appendChild(itemDiv);
+                };
+
+                reader.readAsDataURL(imageInput.files[0]);
+
+                container.querySelector('.item-title').value = '';
+                container.querySelector('.item-image').value = '';
+                container.querySelector('.item-description').value = '';
+            } else {
+                alert('Please fill out all fields to add an item.');
+            }
+        }
+
+        function removeItem(button) {
+            const itemDiv = button.parentElement;
+            itemDiv.remove();
+        }
+    </script>
+</body>
+
+</html>
